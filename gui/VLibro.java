@@ -143,6 +143,8 @@ public class VLibro extends javax.swing.JDialog {
         btnBorrarEjemplar = new javax.swing.JButton();
         btnNuevoEjemplar = new javax.swing.JButton();
         btnActualizarEjemplaresLibro = new javax.swing.JButton();
+        btnPrestar = new javax.swing.JButton();
+        btnDevolver = new javax.swing.JButton();
         btnBorrarLibro = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
 
@@ -388,29 +390,39 @@ public class VLibro extends javax.swing.JDialog {
             }
         });
 
+        btnPrestar.setText("Prestar");
+
+        btnDevolver.setText("Devolver");
+
         javax.swing.GroupLayout panelEjemplaresLayout = new javax.swing.GroupLayout(panelEjemplares);
         panelEjemplares.setLayout(panelEjemplaresLayout);
         panelEjemplaresLayout.setHorizontalGroup(
             panelEjemplaresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 475, Short.MAX_VALUE)
+            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 486, Short.MAX_VALUE)
             .addGroup(panelEjemplaresLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnNuevoEjemplar)
+                .addComponent(btnNuevoEjemplar, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnBorrarEjemplar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnBorrarEjemplar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnPrestar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnDevolver, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(btnActualizarEjemplaresLibro)
                 .addGap(24, 24, 24))
         );
         panelEjemplaresLayout.setVerticalGroup(
             panelEjemplaresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelEjemplaresLayout.createSequentialGroup()
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 267, Short.MAX_VALUE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 277, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panelEjemplaresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnNuevoEjemplar)
                     .addComponent(btnBorrarEjemplar)
-                    .addComponent(btnActualizarEjemplaresLibro))
+                    .addComponent(btnActualizarEjemplaresLibro)
+                    .addComponent(btnPrestar)
+                    .addComponent(btnDevolver))
                 .addGap(24, 24, 24))
         );
 
@@ -437,7 +449,7 @@ public class VLibro extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnBorrarLibro)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 335, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnSalir)
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
@@ -593,9 +605,11 @@ public class VLibro extends javax.swing.JDialog {
     private javax.swing.JButton btnBorrarEjemplar;
     private javax.swing.JButton btnBorrarLibro;
     private javax.swing.JButton btnDerecha;
+    private javax.swing.JButton btnDevolver;
     private javax.swing.JButton btnIzquierda;
     private javax.swing.JButton btnNuevoAutor;
     private javax.swing.JButton btnNuevoEjemplar;
+    private javax.swing.JButton btnPrestar;
     private javax.swing.JButton btnSalir;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

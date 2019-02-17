@@ -103,5 +103,7 @@ public baseDatos.FachadaBaseDatos getFachadaBaseDatos(){
     return this.fbd;
 }
 
-
+public gui.FachadaGui getFachadaGui(){
+    return this.fgui;
+}
 }

@@ -50,9 +50,21 @@ public class FachadaGui {
         vl.setVisible(true);
     }
     
-    public void nuevoUsuario(){
+    public void pestanhaCategorias(){
+        VCategorias va;
+        
+        va = new VCategorias(vp,true,fa);
+        va.setVisible(true);
+        
     }
-   
+    
+    public void pestanhaUsuarios(){
+        VUsuarios vu;
+        
+        vu = new VUsuarios(vp,true,fa);
+        vu.setVisible(true);
+    }
+    
     
     public void muestraExcepcion(String txtExcepcion){
        VAviso va;
