@@ -29,7 +29,7 @@ public class VPrincipal extends javax.swing.JFrame {
     public VPrincipal(aplicacion.FachadaAplicacion fa) {
         this.fa=fa;
         initComponents();
-       
+        getContentPane().setBackground(java.awt.Color.DARK_GRAY);
     }
     
     private void panelSalir(){
@@ -68,6 +68,7 @@ public class VPrincipal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Biblioteca de Informática");
+        setBackground(java.awt.Color.darkGray);
         setName("vPrincipal"); // NOI18N
         setResizable(false);
 
@@ -193,7 +194,7 @@ public class VPrincipal extends javax.swing.JFrame {
 
         menuAdministracion.setText("Administración");
 
-        itemUsuarios.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_U, 0));
+        itemUsuarios.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_U, java.awt.event.InputEvent.ALT_MASK));
         itemUsuarios.setText("Usuarios");
         itemUsuarios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -202,7 +203,7 @@ public class VPrincipal extends javax.swing.JFrame {
         });
         menuAdministracion.add(itemUsuarios);
 
-        itemCategorias.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, 0));
+        itemCategorias.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.ALT_MASK));
         itemCategorias.setText("Categorías");
         itemCategorias.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

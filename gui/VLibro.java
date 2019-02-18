@@ -150,6 +150,7 @@ public class VLibro extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Gestión de libros");
+        setBackground(java.awt.Color.darkGray);
         setResizable(false);
 
         jLabel2.setText("Título:");
@@ -192,6 +193,7 @@ public class VLibro extends javax.swing.JDialog {
         jLabel1.setText("Id:");
 
         textoId.setEditable(false);
+        textoId.setForeground(java.awt.Color.white);
         textoId.setEnabled(false);
 
         javax.swing.GroupLayout panelGeneralAutoresLayout = new javax.swing.GroupLayout(panelGeneralAutores);
@@ -391,6 +393,11 @@ public class VLibro extends javax.swing.JDialog {
         });
 
         btnPrestar.setText("Prestar");
+        btnPrestar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPrestarActionPerformed(evt);
+            }
+        });
 
         btnDevolver.setText("Devolver");
 
@@ -592,6 +599,11 @@ public class VLibro extends javax.swing.JDialog {
             btnBorrarEjemplar.setEnabled(true);
         } else btnBorrarEjemplar.setEnabled(false);
     }//GEN-LAST:event_btnActualizarEjemplaresLibroActionPerformed
+
+    private void btnPrestarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrestarActionPerformed
+        // TODO add your handling code here:
+        this.fa.nuevoPrestamo();
+    }//GEN-LAST:event_btnPrestarActionPerformed
 
     /**
     * @param args the command line arguments

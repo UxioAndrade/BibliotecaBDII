@@ -38,6 +38,10 @@ public class FachadaAplicacion {
  public void iniciaInterfazUsuario(){
      fgui.iniciaVista();
  }
+ 
+ public void nuevoPrestamo(){
+     fgui.nuevoPrestamo();
+ }
 
  public void muestraExcepcion(String e){
      fgui.muestraExcepcion(e);
@@ -58,8 +62,6 @@ public void nuevoLibro(){
 public void nuevoUsuario(Usuario u){
     cu.nuevoUsuario(u);
 }
-
-
 
 public java.util.List<Usuario> obtenerUsuarios(String id, String nombre){
     return cu.obtenerUsuarios(id,nombre);

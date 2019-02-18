@@ -21,7 +21,7 @@ public class ModeloTablaUsuarios extends AbstractTableModel{
     }
     
     public int getColumnCount(){
-        return 6;
+        return 4;
     }
     
     public int getRowCount(){
@@ -34,11 +34,9 @@ public class ModeloTablaUsuarios extends AbstractTableModel{
         
         switch(col){
             case 0: nombre = "Id";break;
-            case 1: nombre = "Clave";break;
-            case 2: nombre = "Nombre";break;
-            case 3: nombre = "Direccion";break;
-            case 4: nombre = "Email";break;
-            case 5: nombre = "Tipo";break;
+            case 1: nombre = "Nombre";break;
+            case 2: nombre = "Email";break;
+            case 3: nombre = "Tipo";break;
         }
         return nombre;
     }
@@ -52,8 +50,6 @@ public class ModeloTablaUsuarios extends AbstractTableModel{
             case 1: clase= java.lang.String.class; break;
             case 2: clase=java.lang.String.class; break;
             case 3: clase=java.lang.String.class; break;
-            case 4: clase=java.lang.String.class; break;
-            case 5: clase=java.lang.String.class; break;
         }
         return clase;
     }
@@ -68,11 +64,9 @@ public class ModeloTablaUsuarios extends AbstractTableModel{
 
         switch (col){
             case 0: resultado= usuarios.get(row).getIdUsuario(); break;
-            case 1: resultado= usuarios.get(row).getClave(); break;
-            case 2: resultado= usuarios.get(row).getNombre();break;
-            case 3: resultado= usuarios.get(row).getDireccion(); break;
-            case 4: resultado= usuarios.get(row).getEmail(); break;
-            case 5: resultado= usuarios.get(row).getTipoUsuario(); break;
+            case 1: resultado= usuarios.get(row).getNombre();break;
+            case 2: resultado= usuarios.get(row).getEmail(); break;
+            case 3: resultado= usuarios.get(row).getTipoUsuario(); break;
         }
         return resultado;
     }

@@ -65,6 +65,12 @@ public class FachadaGui {
         vu.setVisible(true);
     }
     
+    public void nuevoPrestamo(){
+        VPrestamos vPre;
+        
+        vPre = new VPrestamos(vp,true,fa);
+        vPre.setVisible(true);
+    }
     
     public void muestraExcepcion(String txtExcepcion){
        VAviso va;

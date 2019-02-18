@@ -163,4 +163,34 @@ public class DAOUsuarios extends AbstractDAO {
         return true;
     }
     
+    public int consultarPrestamosPendientes(String id){
+        
+        Connection con;
+        PreparedStatement stmUsuario=null;
+        ResultSet rsUsuario;
+        int resultado = 0;
+        String idUsuario=null;
+
+        con=super.getConexion();
+        
+        try{
+            stmUsuario=con.prepareStatement("select * "+
+                                        "from prestamo "+
+                                        "where usuario = ? and fecha_devolucion IS NULL");
+            stmUsuario.setString(1, id);
+            rsUsuario=stmUsuario.executeQuery();
+            while(rsUsuario.next()){
+                resultado++;
+            }
+            
+        }catch(SQLException e){
+          System.out.println(e.getMessage());
+          this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
+        }finally{
+          try {stmUsuario.close();} catch (SQLException e){System.out.println("Imposible cerrar cursores");}
+        }
+            
+        return resultado;
+    }
+    
 }

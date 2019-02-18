@@ -6,6 +6,7 @@
 package gui;
 import javax.swing.table.*;
 import aplicacion.Prestamo;
+import aplicacion.Usuario;
 
 /**
  *
@@ -13,10 +14,14 @@ import aplicacion.Prestamo;
  */
 public class ModeloTablaPrestamos extends AbstractTableModel{
     
+    private java.util.ArrayList<Usuario> usuarios;
     private java.util.HashMap<String,Integer> usuariosPrestamos;
+    private baseDatos.FachadaBaseDatos fbd;
     
-    public ModeloTablaPrestamos(){
+    public ModeloTablaPrestamos(baseDatos.FachadaBaseDatos fbd){
+        this.usuarios = new java.util.ArrayList();
         this.usuariosPrestamos = new java.util.HashMap();
+        this.fbd = fbd;
     }
     
     public int getColumnCount(){
@@ -62,17 +67,23 @@ public class ModeloTablaPrestamos extends AbstractTableModel{
         Object resultado=null;
 
         switch (col){
-            //case 0: resultado= usuariosPrestamos.get(row).getIdUsuario(); break;
-            //case 1: resultado= usuarios.get(row).getNombre(); break;
-            //case 2: resultado= usuarios.get(row).getEmail();break;
-            //case 3: resultado= usuarios.get(row).getDireccion(); break;
+            case 0: resultado= usuarios.get(row).getIdUsuario(); break;
+            case 1: resultado= usuarios.get(row).getNombre(); break;
+            case 2: resultado= usuarios.get(row).getEmail();break;
+            case 3: resultado= usuariosPrestamos.get(usuarios.get(row).getIdUsuario()); break;
         }
         return resultado;
     }
     
     public void setFilas(java.util.HashMap<String,Integer> usuariosPrestamos){
         this.usuariosPrestamos = usuariosPrestamos;
+        for(Usuario u: this.usuarios){
+            usuariosPrestamos.put(u.getIdUsuario(), this.fbd.calcularPrestamosPendientes(u.getIdUsuario()));
+        }
         fireTableDataChanged();
     }
     
+    public Usuario obtenerUsuario(int i){
+        return this.usuarios.get(i);
+    }
 }

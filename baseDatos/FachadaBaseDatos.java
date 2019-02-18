@@ -140,4 +140,8 @@ public class FachadaBaseDatos {
         daoPrestamos.insertarPrestamo(p);
     }
 
+    public int calcularPrestamosPendientes(String idUsuario){
+       return daoUsuarios.consultarPrestamosPendientes(idUsuario);
+    }
+    
 }

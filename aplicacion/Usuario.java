@@ -12,6 +12,7 @@ package aplicacion;
  * @author basesdatos
  */
 public class Usuario {
+    
     private String idUsuario;
     private String clave;
     private String nombre;
@@ -57,7 +58,7 @@ public class Usuario {
 
        return this.tipo;
    }
-
+  
    public String getStringTipoUsuario(){
        if(this.tipo == TipoUsuario.Administrador)
            return "Administrador";

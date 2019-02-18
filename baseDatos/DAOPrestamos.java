@@ -6,6 +6,7 @@
 package baseDatos;
 
 import java.sql.Connection;
+import aplicacion.Prestamo;
 
 /**
  *
@@ -18,6 +19,8 @@ public class DAOPrestamos extends AbstractDAO{
         super.setFachadaAplicacion(fa);
     }
     
-    
+    public void insertarPrestamo(Prestamo p){
+        
+    }
     
 }
