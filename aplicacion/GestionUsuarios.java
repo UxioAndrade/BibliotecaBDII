@@ -38,6 +38,14 @@ public class GestionUsuarios {
     public java.util.List<Usuario> obtenerUsuarios(String id, String nombre){
         return fbd.consultarUsuarios(id,nombre);
     }
+    
+    public Usuario consultarUsuario(String id){
+        return fbd.consultarUsuario(id);
+    }
+     
+    public void editarUsuario(String id,Usuario u){
+        this.fbd.editarUsuario(id,u);
+    }
   
     public boolean borrarUsuario(String idUsuario){
         return this.fbd.borrarUsuario(idUsuario);

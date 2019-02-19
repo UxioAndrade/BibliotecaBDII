@@ -15,6 +15,7 @@ public class VUsuarios extends javax.swing.JDialog {
 
     private VPrincipal padre;
     private aplicacion.FachadaAplicacion fa;
+    private Usuario usuarioSeleccionado;
     
     /**
      * Creates new form VUsuarios
@@ -114,6 +115,11 @@ public class VUsuarios extends javax.swing.JDialog {
         });
 
         tablaUsuarios.setModel(new ModeloTablaUsuarios());
+        tablaUsuarios.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaUsuariosMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tablaUsuarios);
 
         comboBoxTipoUsuario.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Administrador", "Normal" }));
@@ -234,7 +240,6 @@ public class VUsuarios extends javax.swing.JDialog {
         textoEmail.setText("");
         textoId.setText("");
         textoClave.setText("");
-        textoDireccion.setText("");
     }//GEN-LAST:event_btnNuevoUsuarioActionPerformed
 
     private void btnSalir1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalir1ActionPerformed
@@ -244,22 +249,65 @@ public class VUsuarios extends javax.swing.JDialog {
 
     private void btnBorrarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarUsuarioActionPerformed
         // TODO add your handling code here:
-        if(!this.fa.borrarUsuario(textoId.getText()))
+        Boolean noTienePendiente = this.fa.borrarUsuario(textoId.getText());
+        if(!noTienePendiente)
             this.fa.getFachadaGui().muestraExcepcion("El usuario seleccionado aún tiene préstamos pendientes");
+        else{
+            ModeloTablaUsuarios m; 
+            m = (ModeloTablaUsuarios) tablaUsuarios.getModel();
+            m.fireTableDataChanged();
+            m.borrarUsuario(textoId.getText());
+            textoNombre.setText("");
+            textoDireccion.setText("");
+            textoEmail.setText("");
+            textoId.setText("");
+            textoClave.setText("");
+        }
         //    JOptionPane.showMessageDialog(this,"El usuario seleccionado aún tiene préstamos pendientes","Error",JOptionPane.ERROR_MESSAGE);
     }//GEN-LAST:event_btnBorrarUsuarioActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
-        Usuario u;
-        u = new Usuario(textoId.getText(),textoClave.getText(),textoNombre.getText(),textoDireccion.getText(),textoEmail.getText(),aplicacion.TipoUsuario.Normal);
-        this.fa.nuevoUsuario(u);
+        String idUsuario = textoId.getText();
+        Usuario u = this.fa.consultarUsuario(idUsuario);
+         if(u == null){
+             u = new Usuario(textoId.getText(),textoClave.getText(),textoNombre.getText(),textoDireccion.getText(),textoEmail.getText(),aplicacion.TipoUsuario.Normal);
+             this.fa.nuevoUsuario(u);
+             ModeloTablaUsuarios m; 
+             m = (ModeloTablaUsuarios) tablaUsuarios.getModel();
+             m.addUsuario(u);
+        }else{
+            u = new Usuario(textoId.getText(),textoClave.getText(),textoNombre.getText(),textoDireccion.getText(),textoEmail.getText(),aplicacion.TipoUsuario.Normal);
+            this.fa.editarUsuario(this.usuarioSeleccionado.getIdUsuario(),u);
+            ModeloTablaUsuarios m; 
+            m = (ModeloTablaUsuarios) tablaUsuarios.getModel();
+            m.fireTableDataChanged();
+        }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnBuscarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarUsuarioActionPerformed
         // TODO add your handling code here:
         buscarUsuarios();
     }//GEN-LAST:event_btnBuscarUsuarioActionPerformed
+
+    private void tablaUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaUsuariosMouseClicked
+        // TODO add your handling code here:
+        ModeloTablaUsuarios model = (ModeloTablaUsuarios)tablaUsuarios.getModel();
+        
+        int indexFilaSeleccionada = tablaUsuarios.getSelectedRow();
+        
+        String idUsuario = (String) model.getValueAt(indexFilaSeleccionada,0);
+        
+        Usuario usr = this.fa.consultarUsuario(idUsuario);
+        
+        textoId.setText(idUsuario);
+        textoDireccion.setText(usr.getDireccion());
+        textoEmail.setText(usr.getEmail());
+        textoNombre.setText(usr.getNombre());
+        textoClave.setText(usr.getClave());
+        
+        this.usuarioSeleccionado = usr;
+    }//GEN-LAST:event_tablaUsuariosMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -72,7 +72,7 @@ public class DAOUsuarios extends AbstractDAO {
             stmUsuario.setString(6, usuario.getStringTipoUsuario());
             stmUsuario.executeUpdate();
 
-            try{
+            /*try{
             stmIdUsuario=con.prepareStatement("select currval('seq_usuario_id_usuario') as id_usuario");
             rsIdUsuario=stmIdUsuario.executeQuery();
             rsIdUsuario.next();
@@ -80,7 +80,7 @@ public class DAOUsuarios extends AbstractDAO {
             } catch (SQLException e){
               System.out.println(e.getMessage());
             }finally{stmIdUsuario.close();}
-             
+             */
         }catch (SQLException e){
           System.out.println(e.getMessage());
           this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
@@ -112,8 +112,8 @@ public class DAOUsuarios extends AbstractDAO {
             rsUsuarios = stmUsuarios.executeQuery();
             
             while (rsUsuarios.next()){
-                usuarioActual = new Usuario(rsUsuarios.getString("id_usuario"),rsUsuarios.getString("nombre"),
-                rsUsuarios.getString("clave"),rsUsuarios.getString("email"),rsUsuarios.getString("direccion"),TipoUsuario.Normal);
+                usuarioActual = new Usuario(rsUsuarios.getString("id_usuario"),rsUsuarios.getString("clave"),
+                rsUsuarios.getString("nombre"),rsUsuarios.getString("direccion"),rsUsuarios.getString("email"),TipoUsuario.Normal);
                 resultado.add(usuarioActual);
             }
         }
@@ -126,14 +126,69 @@ public class DAOUsuarios extends AbstractDAO {
         return resultado;
     }
     
+    public Usuario consultarUsuario(String id){
+        
+        Usuario resultado = null;
+        Connection con;
+        PreparedStatement stmUsuarios = null;
+        ResultSet rsUsuarios;
+        
+        con = this.getConexion();
+        
+        String consulta = "select id_usuario, nombre, clave, email, direccion, tipo_usuario " + 
+                                "from usuario as u " +
+                                "where id_usuario like ? ";
+
+        try{
+            stmUsuarios = con.prepareStatement(consulta);
+            stmUsuarios.setString(1,id);
+            rsUsuarios = stmUsuarios.executeQuery();
+            
+            if(rsUsuarios.next())
+                resultado = new Usuario(rsUsuarios.getString("id_usuario"),rsUsuarios.getString("clave"),
+                rsUsuarios.getString("nombre"),rsUsuarios.getString("direccion"),rsUsuarios.getString("email"),TipoUsuario.Normal);
+        }catch (SQLException e){
+          System.out.println(e.getMessage());
+          this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
+        }finally{
+          try {stmUsuarios.close();} catch (SQLException e){System.out.println("Imposible cerrar cursores");}
+        }
+        return resultado;    
+    }
+    
+    public void editarUsuario(String id,Usuario u){
+        
+        Connection con;
+        PreparedStatement stmUsuario=null;
+
+        con=super.getConexion();
+        
+        try{
+            stmUsuario=con.prepareStatement("update usuario "+
+                                        "SET id_usuario = ?, clave = ?, nombre = ?, direccion = ?, email = ? "+
+                                        "where id_usuario like ?");
+            stmUsuario.setString(1, u.getIdUsuario());
+            stmUsuario.setString(2, u.getClave());
+            stmUsuario.setString(3, u.getNombre());
+            stmUsuario.setString(4, u.getDireccion());
+            stmUsuario.setString(5, u.getEmail());
+            stmUsuario.setString(6, id);
+            stmUsuario.executeUpdate();
+        }catch (SQLException e){
+          System.out.println(e.getMessage());
+          this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
+        }finally{
+          try {stmUsuario.close();} catch (SQLException e){System.out.println("Imposible cerrar cursores");}
+        }
+        
+    }
+    
     public boolean borrarUsuario(String id){
         
         Connection con;
         PreparedStatement stmUsuario=null;
         PreparedStatement stmBorrarUsuario=null;
         ResultSet rsUsuario;
-
-        String idUsuario=null;
 
         con=super.getConexion();
         
@@ -147,8 +202,8 @@ public class DAOUsuarios extends AbstractDAO {
             
             try{
                 stmBorrarUsuario = con.prepareStatement("delete from usuario where id_usuario = ?");
-                stmBorrarUsuario.setString(1, idUsuario);
-                stmBorrarUsuario.executeQuery();
+                stmBorrarUsuario.setString(1, id);
+                stmBorrarUsuario.executeUpdate();
             }catch (SQLException e){
               System.out.println(e.getMessage());
             }finally{stmBorrarUsuario.close();}

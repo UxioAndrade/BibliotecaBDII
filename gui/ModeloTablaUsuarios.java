@@ -76,6 +76,26 @@ public class ModeloTablaUsuarios extends AbstractTableModel{
         fireTableDataChanged();
     }
     
+    public void actualizarFila(int i, Usuario u){
+        this.usuarios.set(i, u);
+        fireTableDataChanged();
+    }
+    
+    public void addUsuario(Usuario u){
+        this.usuarios.add(u);
+        fireTableDataChanged();
+    }
+    
+    public void borrarUsuario(String id){
+        for(Usuario u: this.usuarios){
+            if(id.equals(u.getIdUsuario())){
+                this.usuarios.remove(u);
+                fireTableDataChanged();
+                return;
+            }
+        }
+    }
+    
     public Usuario obtenerUsuario(int i){
         return this.usuarios.get(i);
     }

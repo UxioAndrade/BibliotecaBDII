@@ -67,8 +67,16 @@ public java.util.List<Usuario> obtenerUsuarios(String id, String nombre){
     return cu.obtenerUsuarios(id,nombre);
 }
 
+public Usuario consultarUsuario(String id){
+    return cu.consultarUsuario(id);
+}
+
 public Integer actualizarLibro(Libro l){
   return cl.actualizarLibro(l);
+}
+
+public void editarUsuario(String id,Usuario u){
+    cu.editarUsuario(id,u);
 }
 
 public void borrarLibro(Integer idLibro){

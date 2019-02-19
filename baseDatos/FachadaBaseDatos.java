@@ -116,6 +116,14 @@ public class FachadaBaseDatos {
         daoUsuarios.insertarUsuario(u);
     }
     
+    public Usuario consultarUsuario(String id){
+        return daoUsuarios.consultarUsuario(id);
+    }
+    
+    public void editarUsuario(String id,Usuario u){
+        daoUsuarios.editarUsuario(id,u);
+    }
+    
     public boolean borrarUsuario(String idUsuario){
         return daoUsuarios.borrarUsuario(idUsuario);
     }

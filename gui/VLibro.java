@@ -400,6 +400,11 @@ public class VLibro extends javax.swing.JDialog {
         });
 
         btnDevolver.setText("Devolver");
+        btnDevolver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDevolverActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelEjemplaresLayout = new javax.swing.GroupLayout(panelEjemplares);
         panelEjemplares.setLayout(panelEjemplaresLayout);
@@ -409,7 +414,7 @@ public class VLibro extends javax.swing.JDialog {
             .addGroup(panelEjemplaresLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnNuevoEjemplar, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(btnBorrarEjemplar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnPrestar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -604,6 +609,11 @@ public class VLibro extends javax.swing.JDialog {
         // TODO add your handling code here:
         this.fa.nuevoPrestamo();
     }//GEN-LAST:event_btnPrestarActionPerformed
+
+    private void btnDevolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDevolverActionPerformed
+        // TODO add your handling code here:
+        this.tablaEjemplares.getSelectedRow();
+    }//GEN-LAST:event_btnDevolverActionPerformed
 
     /**
     * @param args the command line arguments
