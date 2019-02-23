@@ -12,12 +12,12 @@ package aplicacion;
 public class Prestamo {
     
     private String usuario;
-    private String libro;
-    private String ejemplar;
+    private Integer libro;
+    private Integer ejemplar;
     private String fecha_prestamo;
     private String fecha_devolucion;
     
-    public Prestamo(String usuario, String libro, String ejemplar, String fecha_prestamo, String fecha_devolucion){
+    public Prestamo(String usuario, Integer libro, Integer ejemplar, String fecha_prestamo, String fecha_devolucion){
         this.usuario = usuario;
         this.libro = libro;
         this.ejemplar = ejemplar;
@@ -29,11 +29,11 @@ public class Prestamo {
         return this.usuario;
     }
     
-    public String getLibro(){
+    public Integer getLibro(){
         return this.libro;
     }
     
-    public String getEjemplar(){
+    public Integer getEjemplar(){
         return this.ejemplar;
     }
     

@@ -145,11 +145,22 @@ public class FachadaBaseDatos {
     }
     
     public void nuevoPrestamo(Prestamo p){
-        daoPrestamos.insertarPrestamo(p);
+        //daoPrestamos.insertarPrestamo(p);
     }
 
     public int calcularPrestamosPendientes(String idUsuario){
        return daoUsuarios.consultarPrestamosPendientes(idUsuario);
     }
     
+    public java.util.List<Prestamo> consultarPrestamos(Integer idLibro, Integer idEjemplar){
+        return daoPrestamos.consultarPrestamos(idLibro,idEjemplar);
+    }
+    
+    public Ejemplar consultarEjemplar(Integer idLibro, Integer numEjemplar){
+       return daoLibros.consultarEjemplar(idLibro, numEjemplar);
+    }
+    
+    public boolean anhadirPrestamo(Ejemplar e, Usuario u){
+        return daoPrestamos.insertarPrestamo(e,u);
+    }
 }

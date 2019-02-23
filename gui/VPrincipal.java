@@ -29,6 +29,8 @@ public class VPrincipal extends javax.swing.JFrame {
     public VPrincipal(aplicacion.FachadaAplicacion fa) {
         this.fa=fa;
         initComponents();
+        this.tablaLibros.setRowSelectionAllowed(true);
+        this.tablaLibros.setColumnSelectionAllowed(false);
         getContentPane().setBackground(java.awt.Color.DARK_GRAY);
     }
     
@@ -110,7 +112,6 @@ public class VPrincipal extends javax.swing.JFrame {
 
         tablaLibros.setModel(new ModeloTablaLibros());
         tablaLibros.setColumnSelectionAllowed(true);
-        tablaLibros.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tablaLibros.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tablaLibros);
         tablaLibros.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);

@@ -204,9 +204,40 @@ public class DAOLibros extends AbstractDAO {
         }
         return resultado;
     }
+    
+    public Ejemplar consultarEjemplar(Integer idLibro, Integer numEjemplar){
+        Ejemplar resultado = null;
+        Connection con;
+        PreparedStatement stmEjemplar=null;
+        ResultSet rsEjemplar;
+        
+        con=super.getConexion();
+
+        try {
+        stmEjemplar =con.prepareStatement("select ano_compra, localizador "+
+                                                "from ejemplar "+
+                                                "where libro = ? and num_ejemplar = ?");
+        stmEjemplar.setInt(1,idLibro);
+        stmEjemplar.setInt(2,numEjemplar);
+        rsEjemplar=stmEjemplar.executeQuery();
+        if(rsEjemplar.next())
+        {
+            Libro libro = this.consultarLibro(idLibro);
+             resultado = new Ejemplar(libro, numEjemplar,
+                                               rsEjemplar.getString("localizador"),
+                                                  rsEjemplar.getString("ano_compra"));
+        }
 
 
-
+        } catch (SQLException e){
+          System.out.println(e.getMessage());
+          this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
+        }finally{
+          try {stmEjemplar.close();} catch (SQLException e){System.out.println("Imposible cerrar cursores");}
+        }
+        return resultado;
+        
+    }
 
     public java.util.List<String> obtenerRestoCategorias(Integer idLibro){
         java.util.List<String> resultado = new java.util.ArrayList<String>();

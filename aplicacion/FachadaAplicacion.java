@@ -16,6 +16,7 @@ public class FachadaAplicacion {
     GestionLibros cl;
     GestionUsuarios cu;
     GestionCategorias cc;
+    GestionPrestamos cp;
     
     
  public FachadaAplicacion(){
@@ -26,6 +27,7 @@ public class FachadaAplicacion {
    cl= new GestionLibros(fgui, fbd);
    cu= new GestionUsuarios(fgui, fbd);
    cc = new GestionCategorias(fgui,fbd);
+   cp = new GestionPrestamos(fgui,fbd);
  }
 
  public static void main(String args[]) {
@@ -37,10 +39,6 @@ public class FachadaAplicacion {
  
  public void iniciaInterfazUsuario(){
      fgui.iniciaVista();
- }
- 
- public void nuevoPrestamo(){
-     fgui.nuevoPrestamo();
  }
 
  public void muestraExcepcion(String e){
@@ -61,6 +59,14 @@ public void nuevoLibro(){
 
 public void nuevoUsuario(Usuario u){
     cu.nuevoUsuario(u);
+}
+
+public void nuevoPrestamo(Ejemplar e){
+    cp.nuevoPrestamo(e);
+}
+
+public boolean anhadirPrestamo(Ejemplar e, Usuario u){
+    return cp.anhadirPrestamo(e,u);
 }
 
 public java.util.List<Usuario> obtenerUsuarios(String id, String nombre){
@@ -100,6 +106,9 @@ public boolean borrarUsuario(String idUsuario){
    return cu.borrarUsuario(idUsuario);
 }
  
+public int calcularPrestamosPendientes(String idUsuario){
+    return cu.calcularPrestamosPendientes(idUsuario);
+}
 
 public void nuevaCategoria(Categoria categoria){
     cc.nuevaCategoria(categoria);
@@ -107,6 +116,10 @@ public void nuevaCategoria(Categoria categoria){
 
 public void borrarCategoria(String nombre){
     cc.borrarCategoria(nombre);
+}
+
+public Ejemplar consultarEjemplar(Integer idLibro, Integer numEjemplar){
+    return cl.consultarEjemplar(idLibro, numEjemplar);
 }
 
 public baseDatos.FachadaBaseDatos getFachadaBaseDatos(){

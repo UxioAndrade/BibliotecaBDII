@@ -25,4 +25,11 @@ public class GestionPrestamos {
        fbd.nuevoPrestamo(p);
    }
     
+   public void nuevoPrestamo(Ejemplar e){
+       this.fgui.nuevoPrestamo(e);
+   }
+   
+   public boolean anhadirPrestamo(Ejemplar e, Usuario u){
+       return fbd.anhadirPrestamo(e,u);
+   }
 }

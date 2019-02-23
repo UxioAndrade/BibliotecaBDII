@@ -13,6 +13,7 @@ package gui;
 
 import aplicacion.Libro;
 import aplicacion.Ejemplar;
+import aplicacion.Usuario;
 
 /**
  *
@@ -86,7 +87,7 @@ public class VLibro extends javax.swing.JDialog {
             btnIzquierda.setEnabled(true);
         } else btnIzquierda.setEnabled(false);
 
-        ModeloTablaEjemplares mTEjemplares = new ModeloTablaEjemplares();
+        ModeloTablaEjemplares mTEjemplares = new ModeloTablaEjemplares(this.fa.getFachadaBaseDatos());
         tablaEjemplares.setModel(mTEjemplares);
         mTEjemplares.setFilas(libro.getEjemplares());
         if (mTEjemplares.getRowCount()>0) {
@@ -368,7 +369,7 @@ public class VLibro extends javax.swing.JDialog {
 
         panelLibro.addTab("Categorías", panelCategorias);
 
-        tablaEjemplares.setModel(new ModeloTablaEjemplares());
+        tablaEjemplares.setModel(new ModeloTablaEjemplares(this.fa.getFachadaBaseDatos()));
         jScrollPane4.setViewportView(tablaEjemplares);
 
         btnBorrarEjemplar.setText("Borrar");
@@ -412,17 +413,16 @@ public class VLibro extends javax.swing.JDialog {
             panelEjemplaresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 486, Short.MAX_VALUE)
             .addGroup(panelEjemplaresLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnNuevoEjemplar, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnBorrarEjemplar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(6, 6, 6)
+                .addComponent(btnNuevoEjemplar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnBorrarEjemplar, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnPrestar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnDevolver, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnActualizarEjemplaresLibro)
-                .addGap(24, 24, 24))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnActualizarEjemplaresLibro))
         );
         panelEjemplaresLayout.setVerticalGroup(
             panelEjemplaresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -607,7 +607,13 @@ public class VLibro extends javax.swing.JDialog {
 
     private void btnPrestarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrestarActionPerformed
         // TODO add your handling code here:
-        this.fa.nuevoPrestamo();
+        ModeloTablaEjemplares model = (ModeloTablaEjemplares)tablaEjemplares.getModel();
+        
+        int indexFilaSeleccionada = tablaEjemplares.getSelectedRow();
+        
+        Integer idEjemplar = (Integer) model.getValueAt(indexFilaSeleccionada,0);
+        Ejemplar e = this.fa.consultarEjemplar(this.idLibro,idEjemplar);
+        this.fa.nuevoPrestamo(e);
     }//GEN-LAST:event_btnPrestarActionPerformed
 
     private void btnDevolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDevolverActionPerformed

@@ -75,4 +75,8 @@ public class GestionLibros{
 
        return fbd.consultarEjemplaresLibro(idLibro);
     }
+    
+    public Ejemplar consultarEjemplar(Integer idLibro, Integer numEjemplar){
+        return fbd.consultarEjemplar(idLibro,numEjemplar);
+    }
 }

@@ -72,15 +72,6 @@ public class DAOUsuarios extends AbstractDAO {
             stmUsuario.setString(6, usuario.getStringTipoUsuario());
             stmUsuario.executeUpdate();
 
-            /*try{
-            stmIdUsuario=con.prepareStatement("select currval('seq_usuario_id_usuario') as id_usuario");
-            rsIdUsuario=stmIdUsuario.executeQuery();
-            rsIdUsuario.next();
-            idUsuario=rsIdUsuario.getString("id_usuario");
-            } catch (SQLException e){
-              System.out.println(e.getMessage());
-            }finally{stmIdUsuario.close();}
-             */
         }catch (SQLException e){
           System.out.println(e.getMessage());
           this.getFachadaAplicacion().muestraExcepcion(e.getMessage());

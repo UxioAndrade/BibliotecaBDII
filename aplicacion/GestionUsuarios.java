@@ -42,6 +42,10 @@ public class GestionUsuarios {
     public Usuario consultarUsuario(String id){
         return fbd.consultarUsuario(id);
     }
+    
+    public int calcularPrestamosPendientes(String idUsuario){
+        return this.fbd.calcularPrestamosPendientes(idUsuario);
+    }
      
     public void editarUsuario(String id,Usuario u){
         this.fbd.editarUsuario(id,u);

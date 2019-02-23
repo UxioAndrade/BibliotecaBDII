@@ -5,20 +5,24 @@
  */
 package gui;
 import aplicacion.FachadaAplicacion;
+import aplicacion.Usuario;
+import aplicacion.Ejemplar;
 /**
  *
  * @author alumnogreibd
  */
 public class VPrestamos extends javax.swing.JDialog {
 
-    FachadaAplicacion fa;
-    
+    private FachadaAplicacion fa;
+    private Usuario usuarioSeleccionado;
+    private Ejemplar ejemplar;
     /**
      * Creates new form VPrestamos
      */
-    public VPrestamos(java.awt.Frame parent, boolean modal, FachadaAplicacion fa) {
+    public VPrestamos(java.awt.Frame parent, boolean modal, FachadaAplicacion fa, Ejemplar e) {
         super(parent, modal);
         this.fa = fa;
+        this.ejemplar = e;
         initComponents();
     }
 
@@ -39,7 +43,7 @@ public class VPrestamos extends javax.swing.JDialog {
         btnPrestar = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tablaUsuariosPrestamos = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Préstamos");
@@ -56,13 +60,28 @@ public class VPrestamos extends javax.swing.JDialog {
         });
 
         btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
 
         btnPrestar.setText("Prestar");
+        btnPrestar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPrestarActionPerformed(evt);
+            }
+        });
 
         btnSalir.setText("Salir");
 
-        jTable1.setModel(new ModeloTablaPrestamos(this.fa.getFachadaBaseDatos()));
-        jScrollPane1.setViewportView(jTable1);
+        tablaUsuariosPrestamos.setModel(new ModeloTablaPrestamos(this.fa.getFachadaBaseDatos()));
+        tablaUsuariosPrestamos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaUsuariosPrestamosMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tablaUsuariosPrestamos);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -114,6 +133,39 @@ public class VPrestamos extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_textoNombreActionPerformed
 
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        // TODO add your handling code here:
+        ModeloTablaPrestamos m;
+        
+        m = (ModeloTablaPrestamos) tablaUsuariosPrestamos.getModel();
+        m.setFilas(fa.obtenerUsuarios(textoId.getText(),textoNombre.getText()));
+        if(m.getRowCount() > 0){
+            tablaUsuariosPrestamos.setRowSelectionInterval(0,0);
+        }
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void btnPrestarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrestarActionPerformed
+        // TODO add your handling code here:
+        Boolean prestamoAceptado = this.fa.anhadirPrestamo(this.ejemplar,this.usuarioSeleccionado);
+        if(!prestamoAceptado)
+            this.fa.getFachadaGui().muestraExcepcion("El usuario seleccionado aún tiene préstamos pendientes");
+        else{
+            
+        }
+    }//GEN-LAST:event_btnPrestarActionPerformed
+
+    private void tablaUsuariosPrestamosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaUsuariosPrestamosMouseClicked
+        // TODO add your handling code here:
+        ModeloTablaPrestamos model = (ModeloTablaPrestamos)tablaUsuariosPrestamos.getModel();
+        
+        int indexFilaSeleccionada = tablaUsuariosPrestamos.getSelectedRow();
+        
+        String idUsuario = (String) model.getValueAt(indexFilaSeleccionada,0);
+        
+        this.usuarioSeleccionado = this.fa.consultarUsuario(idUsuario);
+        
+    }//GEN-LAST:event_tablaUsuariosPrestamosMouseClicked
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnPrestar;
@@ -121,7 +173,7 @@ public class VPrestamos extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tablaUsuariosPrestamos;
     private javax.swing.JTextField textoId;
     private javax.swing.JTextField textoNombre;
     // End of variables declaration//GEN-END:variables

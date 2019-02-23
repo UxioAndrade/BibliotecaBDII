@@ -6,19 +6,25 @@
 package gui;
 import aplicacion.Ejemplar;
 import javax.swing.table.*;
+import aplicacion.Prestamo;
 /**
  *
  * @author basesdatos
  */
 public class ModeloTablaEjemplares extends AbstractTableModel{
+    
     private java.util.List<Ejemplar> ejemplares;
+    private java.util.HashMap<Integer,Prestamo> prestamos;
+    private baseDatos.FachadaBaseDatos fbd;
 
-    public ModeloTablaEjemplares(){
+    public ModeloTablaEjemplares(baseDatos.FachadaBaseDatos fbd){
         this.ejemplares=new java.util.ArrayList<Ejemplar>();
+        this.prestamos = new java.util.HashMap<Integer, Prestamo>();
+        this.fbd = fbd;
     }
 
     public int getColumnCount (){
-        return 3;
+        return 6;
     }
 
     public int getRowCount(){
@@ -32,7 +38,10 @@ public class ModeloTablaEjemplares extends AbstractTableModel{
         switch (col){
             case 0: nombre= "Id"; break;
             case 1: nombre= "Localizador"; break;
-            case 2: nombre="Año de compra"; break;
+            case 2: nombre= "Año de compra"; break;
+            case 3: nombre = "Usuario"; break;
+            case 4: nombre = "Fecha"; break;
+            case 5: nombre = "Vence";break;
         }
         return nombre;
     }
@@ -45,6 +54,9 @@ public class ModeloTablaEjemplares extends AbstractTableModel{
             case 0: clase= java.lang.Integer.class; break;
             case 1: clase= java.lang.String.class; break;
             case 2: clase=java.lang.String.class; break;
+            case 3: clase=java.lang.String.class; break;
+            case 4: clase=java.lang.String.class; break;
+            case 5: clase=java.lang.String.class; break;
         }
         return clase;
     }
@@ -61,6 +73,9 @@ public class ModeloTablaEjemplares extends AbstractTableModel{
             case 0: resultado= ejemplares.get(row).getNumEjemplar(); break;
             case 1: resultado= ejemplares.get(row).getLocalizador(); break;
             case 2: resultado=ejemplares.get(row).getAnoCompra();break;
+            case 3: resultado = prestamos.get(ejemplares.get(row).getNumEjemplar()).getUsuario();break;
+            case 4: resultado = prestamos.get(ejemplares.get(row).getNumEjemplar()).getFechaPrestamo();break;
+            case 5: resultado = prestamos.get(ejemplares.get(row).getNumEjemplar()).getFechaDevolucion();break;
         }
         return resultado;
     }
@@ -75,6 +90,9 @@ public class ModeloTablaEjemplares extends AbstractTableModel{
 
     public void setFilas(java.util.List<Ejemplar> ejemplares){
         this.ejemplares=ejemplares;
+        for(Ejemplar e: this.ejemplares){
+            this.prestamos.put(e.getNumEjemplar(), this.fbd.consultarPrestamos(e.getLibro().getIdLibro(),e.getNumEjemplar()));
+        }
         fireTableDataChanged();
     }
 

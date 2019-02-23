@@ -14,7 +14,7 @@ import aplicacion.Usuario;
  */
 public class ModeloTablaPrestamos extends AbstractTableModel{
     
-    private java.util.ArrayList<Usuario> usuarios;
+    private java.util.List<Usuario> usuarios;
     private java.util.HashMap<String,Integer> usuariosPrestamos;
     private baseDatos.FachadaBaseDatos fbd;
     
@@ -75,8 +75,8 @@ public class ModeloTablaPrestamos extends AbstractTableModel{
         return resultado;
     }
     
-    public void setFilas(java.util.HashMap<String,Integer> usuariosPrestamos){
-        this.usuariosPrestamos = usuariosPrestamos;
+    public void setFilas(java.util.List<Usuario> usuarios){
+        this.usuarios = usuarios;
         for(Usuario u: this.usuarios){
             usuariosPrestamos.put(u.getIdUsuario(), this.fbd.calcularPrestamosPendientes(u.getIdUsuario()));
         }
