@@ -53,9 +53,34 @@ public class DAOPrestamos extends AbstractDAO{
         return true;
     }
     
-    public java.util.List<Prestamo> consultarPrestamos(Integer idLibro, Integer idEjemplar){
+    public void devolverPrestamo(Integer idLibro, Integer idEjemplar){
         
-        java.util.List<Prestamo> resultado = new java.util.ArrayList<Prestamo>();
+        Connection con;
+        PreparedStatement stmPrestamo = null;
+        
+        
+        con = super.getConexion();
+        
+        try{
+            stmPrestamo = con.prepareStatement("update prestamo " +
+                                                "set fecha_devolucion = ? " +
+                                                "where libro = ? and ejemplar = ? and fecha_devolucion IS NULL");
+            stmPrestamo.setTimestamp(1, new Timestamp(System.currentTimeMillis()));
+            stmPrestamo.setInt(2,idLibro);
+            stmPrestamo.setInt(3,idEjemplar);
+            stmPrestamo.executeUpdate();
+        }catch (SQLException e){
+          System.out.println(e.getMessage());
+          this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
+        }finally{
+            try {stmPrestamo.close();} catch (SQLException e){System.out.println("Imposible cerrar cursores");}
+        }
+        
+    }
+    
+    public Prestamo consultarPrestamos(Integer idLibro, Integer idEjemplar){
+        
+        Prestamo resultado = null;
         Prestamo prestamoActual;
         Connection con;
         PreparedStatement stmPrestamo=null;
@@ -63,18 +88,18 @@ public class DAOPrestamos extends AbstractDAO{
         
         con = this.getConexion();
         
-        String consulta = "select usuario, libro, ejemplar, fecha_prestamo, fecha_ devolucion "+
+        String consulta = "select usuario, libro, ejemplar, fecha_prestamo, fecha_devolucion "+
                 "from prestamo " +
-                "where libro like ? and ejemplar like ?";
+                "where libro = ? and ejemplar = ? and fecha_devolucion is null";
         
         try{
             stmPrestamo = con.prepareStatement(consulta);
             stmPrestamo.setInt(1, idLibro);
-            stmPrestamo.setInt(2,idEjemplar);
+            stmPrestamo.setInt(2, idEjemplar);
             rsPrestamo = stmPrestamo.executeQuery();
             while(rsPrestamo.next()){
                 prestamoActual = new Prestamo(rsPrestamo.getString("usuario"),idLibro,idEjemplar,rsPrestamo.getString("fecha_prestamo"),rsPrestamo.getString("fecha_devolucion"));
-                resultado.add(prestamoActual);
+                resultado = prestamoActual;
             }
         }catch (SQLException e){
           System.out.println(e.getMessage());

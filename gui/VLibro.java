@@ -510,6 +510,7 @@ public class VLibro extends javax.swing.JDialog {
      ma.borrarElemento(lstAutores.getSelectedIndex());
      if (ma.getSize()==0) btnBorrarAutor.setEnabled(false);
      else lstAutores.setSelectedIndex(0);
+     
     }//GEN-LAST:event_btnBorrarAutorActionPerformed
 
     private void btnDerechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDerechaActionPerformed
@@ -618,7 +619,14 @@ public class VLibro extends javax.swing.JDialog {
 
     private void btnDevolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDevolverActionPerformed
         // TODO add your handling code here:
-        this.tablaEjemplares.getSelectedRow();
+        ModeloTablaEjemplares model = (ModeloTablaEjemplares) tablaEjemplares.getModel();
+        
+        int indexFilaSeleccionada = tablaEjemplares.getSelectedRow();
+        
+        Integer idEjemplar = (Integer) model.getValueAt(indexFilaSeleccionada,0);
+        this.fa.devolvePrestamo(idLibro, idEjemplar);
+        
+        model.fireTableDataChanged();
     }//GEN-LAST:event_btnDevolverActionPerformed
 
     /**

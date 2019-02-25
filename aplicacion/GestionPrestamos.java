@@ -32,4 +32,8 @@ public class GestionPrestamos {
    public boolean anhadirPrestamo(Ejemplar e, Usuario u){
        return fbd.anhadirPrestamo(e,u);
    }
+   
+   public void devolverPrestamo(Integer idLibro, Integer idEjemplar){
+       this.fbd.devolverPrestamo(idLibro, idEjemplar);
+   }
 }

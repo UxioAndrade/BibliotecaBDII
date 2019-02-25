@@ -9,7 +9,7 @@ package aplicacion;
  *
  * @author alumnogreibd
  */
-public class Prestamo {
+public class Prestamo{
     
     private String usuario;
     private Integer libro;
@@ -43,5 +43,17 @@ public class Prestamo {
     
     public String getFechaDevolucion(){
         return this.fecha_devolucion;
+    }
+    
+    public void setUsuario(String u){
+        this.usuario = u;
+    }
+    
+    public void setFechaPrestamo(String f){
+        this.fecha_prestamo = f;
+    }
+    
+    public void setFechaDevolucion(String f){
+        this.fecha_devolucion = f;
     }
 }

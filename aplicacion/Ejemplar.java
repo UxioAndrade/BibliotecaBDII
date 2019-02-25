@@ -49,4 +49,8 @@ public class Ejemplar {
         anoCompra = a;
     }
     
+    public void setLibro(Libro libro){
+        this.libro = libro;
+    }
+    
 }

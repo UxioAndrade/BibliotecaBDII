@@ -152,7 +152,7 @@ public class FachadaBaseDatos {
        return daoUsuarios.consultarPrestamosPendientes(idUsuario);
     }
     
-    public java.util.List<Prestamo> consultarPrestamos(Integer idLibro, Integer idEjemplar){
+    public Prestamo consultarPrestamos(Integer idLibro, Integer idEjemplar){
         return daoPrestamos.consultarPrestamos(idLibro,idEjemplar);
     }
     
@@ -162,5 +162,9 @@ public class FachadaBaseDatos {
     
     public boolean anhadirPrestamo(Ejemplar e, Usuario u){
         return daoPrestamos.insertarPrestamo(e,u);
+    }
+    
+    public void devolverPrestamo(Integer idLibro, Integer idEjemplar){
+        daoPrestamos.devolverPrestamo(idLibro,idEjemplar);
     }
 }

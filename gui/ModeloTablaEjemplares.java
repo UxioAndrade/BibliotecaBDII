@@ -7,6 +7,7 @@ package gui;
 import aplicacion.Ejemplar;
 import javax.swing.table.*;
 import aplicacion.Prestamo;
+
 /**
  *
  * @author basesdatos
@@ -73,9 +74,21 @@ public class ModeloTablaEjemplares extends AbstractTableModel{
             case 0: resultado= ejemplares.get(row).getNumEjemplar(); break;
             case 1: resultado= ejemplares.get(row).getLocalizador(); break;
             case 2: resultado=ejemplares.get(row).getAnoCompra();break;
-            case 3: resultado = prestamos.get(ejemplares.get(row).getNumEjemplar()).getUsuario();break;
-            case 4: resultado = prestamos.get(ejemplares.get(row).getNumEjemplar()).getFechaPrestamo();break;
-            case 5: resultado = prestamos.get(ejemplares.get(row).getNumEjemplar()).getFechaDevolucion();break;
+            case 3: if(prestamos.get(ejemplares.get(row).getNumEjemplar()) != null){
+                resultado = prestamos.get(ejemplares.get(row).getNumEjemplar()).getUsuario();
+            }else{
+                resultado = null;
+            }break;
+            case 4: if(prestamos.get(ejemplares.get(row).getNumEjemplar()) != null){
+                resultado = prestamos.get(ejemplares.get(row).getNumEjemplar()).getFechaPrestamo();
+            }else{
+                resultado = null;
+            }break;
+            case 5:if(prestamos.get(ejemplares.get(row).getNumEjemplar()) != null){
+                resultado = prestamos.get(ejemplares.get(row).getNumEjemplar()).getFechaDevolucion();
+            }else{
+                resultado = null;
+            }break;
         }
         return resultado;
     }
@@ -83,8 +96,12 @@ public class ModeloTablaEjemplares extends AbstractTableModel{
     @Override
     public void setValueAt(Object v, int row, int col){
         switch (col){
-            case 1: ejemplares.get(row).setLocalizador((String) v); break;
+            case 0: ejemplares.get(row).setLibro(this.fbd.consultarLibro((Integer) v)); break;
+            case 1: ejemplares.get(row).setLocalizador((String) v); break; 
             case 2: ejemplares.get(row).setAnoCompra((String) v);break;
+            case 3: prestamos.get(ejemplares.get(row).getNumEjemplar()).setUsuario((String)v); break;
+            case 4: prestamos.get(ejemplares.get(row).getNumEjemplar()).setFechaPrestamo((String)v); break;
+            case 5: prestamos.get(ejemplares.get(row).getNumEjemplar()).setFechaDevolucion((String)v); break;
         }
     }
 

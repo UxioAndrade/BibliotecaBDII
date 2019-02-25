@@ -122,6 +122,10 @@ public Ejemplar consultarEjemplar(Integer idLibro, Integer numEjemplar){
     return cl.consultarEjemplar(idLibro, numEjemplar);
 }
 
+public void devolvePrestamo(Integer idLibro, Integer idEjemplar){
+    this.cp.devolverPrestamo(idLibro, idEjemplar);
+}
+
 public baseDatos.FachadaBaseDatos getFachadaBaseDatos(){
     return this.fbd;
 }
