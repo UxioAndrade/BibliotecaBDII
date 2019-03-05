@@ -74,6 +74,11 @@ public class VPrestamos extends javax.swing.JDialog {
         });
 
         btnSalir.setText("Salir");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
 
         tablaUsuariosPrestamos.setModel(new ModeloTablaPrestamos(this.fa.getFachadaBaseDatos()));
         tablaUsuariosPrestamos.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -150,7 +155,8 @@ public class VPrestamos extends javax.swing.JDialog {
         if(!prestamoAceptado)
             this.fa.getFachadaGui().muestraExcepcion("El usuario seleccionado aún tiene préstamos pendientes");
         else{
-            
+            this.fa.getFachadaGui().muestraExcepcion("El préstamo se ha realizado correctamente");
+            this.setVisible(false);
         }
     }//GEN-LAST:event_btnPrestarActionPerformed
 
@@ -165,6 +171,11 @@ public class VPrestamos extends javax.swing.JDialog {
         this.usuarioSeleccionado = this.fa.consultarUsuario(idUsuario);
         
     }//GEN-LAST:event_tablaUsuariosPrestamosMouseClicked
+
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        // TODO add your handling code here:
+        this.setVisible(false);
+    }//GEN-LAST:event_btnSalirActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;

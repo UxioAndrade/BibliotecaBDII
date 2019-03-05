@@ -58,11 +58,4 @@ public class Usuario {
 
        return this.tipo;
    }
-  
-   public String getStringTipoUsuario(){
-       if(this.tipo == TipoUsuario.Administrador)
-           return "Administrador";
-       else
-           return "Normal";
-   }
 }

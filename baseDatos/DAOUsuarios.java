@@ -69,7 +69,7 @@ public class DAOUsuarios extends AbstractDAO {
             stmUsuario.setString(3, usuario.getClave());
             stmUsuario.setString(4, usuario.getEmail() );
             stmUsuario.setString(5, usuario.getDireccion());
-            stmUsuario.setString(6, usuario.getStringTipoUsuario());
+            stmUsuario.setString(6, usuario.getTipoUsuario().toString());
             stmUsuario.executeUpdate();
 
         }catch (SQLException e){
@@ -104,7 +104,7 @@ public class DAOUsuarios extends AbstractDAO {
             
             while (rsUsuarios.next()){
                 usuarioActual = new Usuario(rsUsuarios.getString("id_usuario"),rsUsuarios.getString("clave"),
-                rsUsuarios.getString("nombre"),rsUsuarios.getString("direccion"),rsUsuarios.getString("email"),TipoUsuario.Normal);
+                rsUsuarios.getString("nombre"),rsUsuarios.getString("direccion"),rsUsuarios.getString("email"),TipoUsuario.valueOf(rsUsuarios.getString("tipo_usuario")));
                 resultado.add(usuarioActual);
             }
         }
@@ -137,7 +137,7 @@ public class DAOUsuarios extends AbstractDAO {
             
             if(rsUsuarios.next())
                 resultado = new Usuario(rsUsuarios.getString("id_usuario"),rsUsuarios.getString("clave"),
-                rsUsuarios.getString("nombre"),rsUsuarios.getString("direccion"),rsUsuarios.getString("email"),TipoUsuario.Normal);
+                rsUsuarios.getString("nombre"),rsUsuarios.getString("direccion"),rsUsuarios.getString("email"),TipoUsuario.valueOf(rsUsuarios.getString("tipo_usuario")));
         }catch (SQLException e){
           System.out.println(e.getMessage());
           this.getFachadaAplicacion().muestraExcepcion(e.getMessage());

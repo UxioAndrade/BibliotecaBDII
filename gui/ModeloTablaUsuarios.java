@@ -49,7 +49,7 @@ public class ModeloTablaUsuarios extends AbstractTableModel{
             case 0: clase= java.lang.String.class; break;
             case 1: clase= java.lang.String.class; break;
             case 2: clase=java.lang.String.class; break;
-            case 3: clase=java.lang.String.class; break;
+            case 3: clase= aplicacion.TipoUsuario.class; break;
         }
         return clase;
     }

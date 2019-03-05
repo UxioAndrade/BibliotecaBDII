@@ -6,6 +6,7 @@
 package gui;
 
 import aplicacion.Usuario;
+import aplicacion.TipoUsuario;
 
 /**
  *
@@ -239,6 +240,7 @@ public class VUsuarios extends javax.swing.JDialog {
         textoEmail.setText("");
         textoId.setText("");
         textoClave.setText("");
+        this.comboBoxTipoUsuario.setSelectedIndex(0);
     }//GEN-LAST:event_btnNuevoUsuarioActionPerformed
 
     private void btnSalir1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalir1ActionPerformed
@@ -261,6 +263,7 @@ public class VUsuarios extends javax.swing.JDialog {
             textoEmail.setText("");
             textoId.setText("");
             textoClave.setText("");
+            this.comboBoxTipoUsuario.setSelectedIndex(0);
         }
         //    JOptionPane.showMessageDialog(this,"El usuario seleccionado aún tiene préstamos pendientes","Error",JOptionPane.ERROR_MESSAGE);
     }//GEN-LAST:event_btnBorrarUsuarioActionPerformed
@@ -270,13 +273,13 @@ public class VUsuarios extends javax.swing.JDialog {
         String idUsuario = textoId.getText();
         Usuario u = this.fa.consultarUsuario(idUsuario);
          if(u == null){
-             u = new Usuario(textoId.getText(),textoClave.getText(),textoNombre.getText(),textoDireccion.getText(),textoEmail.getText(),aplicacion.TipoUsuario.Normal);
+             u = new Usuario(textoId.getText(),textoClave.getText(),textoNombre.getText(),textoDireccion.getText(),textoEmail.getText(),TipoUsuario.valueOf((String)this.comboBoxTipoUsuario.getSelectedItem()));
              this.fa.nuevoUsuario(u);
              ModeloTablaUsuarios m; 
              m = (ModeloTablaUsuarios) tablaUsuarios.getModel();
              m.addUsuario(u);
         }else{
-            u = new Usuario(textoId.getText(),textoClave.getText(),textoNombre.getText(),textoDireccion.getText(),textoEmail.getText(),aplicacion.TipoUsuario.Normal);
+            u = new Usuario(textoId.getText(),textoClave.getText(),textoNombre.getText(),textoDireccion.getText(),textoEmail.getText(),TipoUsuario.valueOf((String)this.comboBoxTipoUsuario.getSelectedItem()));
             this.fa.editarUsuario(this.usuarioSeleccionado.getIdUsuario(),u);
             ModeloTablaUsuarios m; 
             m = (ModeloTablaUsuarios) tablaUsuarios.getModel();
@@ -304,7 +307,7 @@ public class VUsuarios extends javax.swing.JDialog {
         textoEmail.setText(usr.getEmail());
         textoNombre.setText(usr.getNombre());
         textoClave.setText(usr.getClave());
-        
+        this.comboBoxTipoUsuario.setSelectedItem(usr.getTipoUsuario().toString());
         this.usuarioSeleccionado = usr;
     }//GEN-LAST:event_tablaUsuariosMouseClicked
 

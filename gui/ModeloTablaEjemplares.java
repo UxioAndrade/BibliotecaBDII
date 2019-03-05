@@ -7,6 +7,9 @@ package gui;
 import aplicacion.Ejemplar;
 import javax.swing.table.*;
 import aplicacion.Prestamo;
+import java.util.Calendar;
+import java.text.SimpleDateFormat;
+import java.text.ParseException;
 
 /**
  *
@@ -85,7 +88,16 @@ public class ModeloTablaEjemplares extends AbstractTableModel{
                 resultado = null;
             }break;
             case 5:if(prestamos.get(ejemplares.get(row).getNumEjemplar()) != null){
-                resultado = prestamos.get(ejemplares.get(row).getNumEjemplar()).getFechaDevolucion();
+                try{
+                    resultado = prestamos.get(ejemplares.get(row).getNumEjemplar()).getFechaPrestamo();
+                    SimpleDateFormat stf = new SimpleDateFormat("yyyy-MM-dd");
+                    Calendar c = Calendar.getInstance();
+                    c.setTime(stf.parse((String)resultado));
+                    c.add(Calendar.DATE,30);
+                    return stf.format(c.getTime());
+                }catch(ParseException e){
+                    return null;
+                }
             }else{
                 resultado = null;
             }break;
@@ -111,6 +123,10 @@ public class ModeloTablaEjemplares extends AbstractTableModel{
             this.prestamos.put(e.getNumEjemplar(), this.fbd.consultarPrestamos(e.getLibro().getIdLibro(),e.getNumEjemplar()));
         }
         fireTableDataChanged();
+    }
+    
+    public void devolverEjemplar(Integer idEjemplar){
+        this.prestamos.replace(idEjemplar, null);
     }
 
     public void nuevoEjemplar(Ejemplar e){
