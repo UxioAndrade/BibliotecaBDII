@@ -13,7 +13,7 @@ package gui;
 
 import aplicacion.Libro;
 import aplicacion.Ejemplar;
-import aplicacion.Usuario;
+import aplicacion.Prestamo;
 
 /**
  *
@@ -619,6 +619,15 @@ public class VLibro extends javax.swing.JDialog {
         
         Integer idEjemplar = (Integer) model.getValueAt(indexFilaSeleccionada,0);
         Ejemplar e = this.fa.consultarEjemplar(this.idLibro,idEjemplar);
+        
+        Prestamo p = this.fa.getFachadaBaseDatos().consultarPrestamos(idLibro, idEjemplar);
+        
+        if(p != null){
+            if(p.getFechaDevolucion() == null){
+              this.fa.muestraExcepcion("El ejemplar seleccionado está prestado actualmente");    
+              return;
+            }  
+        }
         this.fa.nuevoPrestamo(e);
     }//GEN-LAST:event_btnPrestarActionPerformed
 

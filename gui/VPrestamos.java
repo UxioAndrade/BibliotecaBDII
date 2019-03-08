@@ -147,6 +147,14 @@ public class VPrestamos extends javax.swing.JDialog {
         if(m.getRowCount() > 0){
             tablaUsuariosPrestamos.setRowSelectionInterval(0,0);
         }
+        this.tablaUsuariosPrestamos.changeSelection(0, 0, false, false);
+        ModeloTablaPrestamos model = (ModeloTablaPrestamos)tablaUsuariosPrestamos.getModel();
+        
+        int indexFilaSeleccionada = tablaUsuariosPrestamos.getSelectedRow();
+        
+        String idUsuario = (String) model.getValueAt(indexFilaSeleccionada,0);
+        
+        this.usuarioSeleccionado = this.fa.consultarUsuario(idUsuario);
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnPrestarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrestarActionPerformed

@@ -28,13 +28,19 @@ public class DAOPrestamos extends AbstractDAO{
         Connection con;
         PreparedStatement stmPrestamo = null;
         
-        con=this.getConexion();
-        
         try{
-            
             if(this.fa.calcularPrestamosPendientes(u.getIdUsuario()) > 0){
                 return false;
             }
+        }catch(Exception ex){
+          System.out.println(ex.getMessage());
+          this.getFachadaAplicacion().muestraExcepcion(ex.getMessage());
+        }
+        
+        
+        con=this.getConexion();
+        
+        try{
             
             stmPrestamo = con.prepareStatement("insert into prestamo(usuario,libro,ejemplar,fecha_prestamo,fecha_devolucion)"+
                                     "values (?,?,?,?,?)");

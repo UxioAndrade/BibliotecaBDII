@@ -156,14 +156,15 @@ public class DAOUsuarios extends AbstractDAO {
         
         try{
             stmUsuario=con.prepareStatement("update usuario "+
-                                        "SET id_usuario = ?, clave = ?, nombre = ?, direccion = ?, email = ? "+
+                                        "SET id_usuario = ?, clave = ?, nombre = ?, direccion = ?, email = ?, tipo_usuario = ? "+
                                         "where id_usuario like ?");
             stmUsuario.setString(1, u.getIdUsuario());
             stmUsuario.setString(2, u.getClave());
             stmUsuario.setString(3, u.getNombre());
             stmUsuario.setString(4, u.getDireccion());
             stmUsuario.setString(5, u.getEmail());
-            stmUsuario.setString(6, id);
+            stmUsuario.setString(6, u.getTipoUsuario().toString());
+            stmUsuario.setString(7, id);
             stmUsuario.executeUpdate();
         }catch (SQLException e){
           System.out.println(e.getMessage());

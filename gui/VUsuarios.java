@@ -279,7 +279,7 @@ public class VUsuarios extends javax.swing.JDialog {
              m = (ModeloTablaUsuarios) tablaUsuarios.getModel();
              m.addUsuario(u);
         }else{
-            u = new Usuario(textoId.getText(),textoClave.getText(),textoNombre.getText(),textoDireccion.getText(),textoEmail.getText(),TipoUsuario.valueOf((String)this.comboBoxTipoUsuario.getSelectedItem()));
+            u = new Usuario(this.usuarioSeleccionado.getIdUsuario(),textoClave.getText(),textoNombre.getText(),textoDireccion.getText(),textoEmail.getText(),TipoUsuario.valueOf((String)this.comboBoxTipoUsuario.getSelectedItem()));
             this.fa.editarUsuario(this.usuarioSeleccionado.getIdUsuario(),u);
             ModeloTablaUsuarios m; 
             m = (ModeloTablaUsuarios) tablaUsuarios.getModel();
